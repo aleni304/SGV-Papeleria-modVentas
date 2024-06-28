@@ -67,7 +67,7 @@ class formEmitirProforma
             </div>
             <div class="resumenProforma">
                 <form action="../moduloVentas/getProforma.php" method="POST" class="formEmitirProforma">
-                    <h2 class="subtitle"> Resumen de pedidos</h2>
+                    <h2 class="subtitle">Lista de productos</h2>
                     <div>
                         <p style="text-align: left;">Productos seleccionados</p>
                         <table class="table">

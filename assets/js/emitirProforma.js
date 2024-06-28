@@ -26,7 +26,7 @@ const crearBtnEliminar = (filaProforma) => {
     return btnEliminar;
 }
 
-const createHiddenInput = (name, value) => {
+const crearHiddenInput = (name, value) => {
     const input = document.createElement("input");
     input.type = "hidden";
     input.setAttribute("name", name);
@@ -34,7 +34,7 @@ const createHiddenInput = (name, value) => {
     return input;
 }
 
-const createPedidoRow = (nombre, precio) => {
+const crearListaRow = (nombre, precio) => {
     const filaProforma = document.createElement("tr");
     filaProforma.innerHTML = `
             <td>${nombre}</td>
@@ -75,14 +75,14 @@ btnAgregarProducto.forEach((boton, index) => {
 
         const nombresProductos = Array.from(document.querySelectorAll(".listaProductos tr td:first-child"));
         if (nombresProductos.some(td => td.textContent === producto.nombre)) {
-            mostrarMensaje("¡No se pudo agregar!", "warning", `El producto ${producto.nombre} ya se ha agregado, si desea aumentar la cantidad, modifique en la lista de pedidos`);
+            mostrarMensaje("¡No se pudo agregar!", "warning", `El producto ${producto.nombre} ya se ha agregado, si desea aumentar la cantidad, modifique en la lista de productos`);
             return;
         }
 
-        mostrarMensaje("¡Pedido agregado!", "success", `El producto ${producto.nombre} se ha agregado correctamente`);
+        mostrarMensaje("¡Producto agregado!", "success", `El producto ${producto.nombre} se ha agregado correctamente`);
 
-        const filaProforma = createPedidoRow(producto.nombre, producto.precio);
-        filaProforma.appendChild(createHiddenInput("idProducto[]", producto.idProducto));
+        const filaProforma = crearListaRow(producto.nombre, producto.precio);
+        filaProforma.appendChild(crearHiddenInput("idProducto[]", producto.idProducto));
         filaProforma.appendChild(crearBtnEliminar(filaProforma));
 
         listaProductos.appendChild(filaProforma);
@@ -92,10 +92,10 @@ btnAgregarProducto.forEach((boton, index) => {
 });
 
 // Inicializar elementos existentes
-Array.from(document.querySelectorAll(".listaPedidos tr")).forEach(filaProforma => {
+/*Array.from(document.querySelectorAll(".listaPedidos tr")).forEach(filaProforma => {
     const cantidadProductoInput = filaProforma.querySelector("input[name='cantidadProducto[]']");
     const subTotal = filaProforma.querySelector("input[name='subTotal[]']");
     const stock = parseInt(filaProforma.dataset.stock);
-    agregarEventoCalcularTotales(cantidadProductoInput, subTotal, stock);
+    calcularTotales(cantidadProductoInput, subTotal, stock);
     filaProforma.appendChild(crearBtnEliminar(filaProforma));
-});
+});*/
