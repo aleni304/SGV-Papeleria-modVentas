@@ -17,6 +17,16 @@ class formEmitirProforma
 
         <body>
             <div>
+                <p>Usuario conectado: <?php echo $_SESSION['usuario'] ?></p>
+            </div>
+            <form action="getProforma.php" method="POST">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="txtBuscarProducto" placeholder="Buscar producto"
+                        aria-label="Search">
+                    <button class="btn btn-light" type="submit" name="btnBuscarProducto">Buscar</button>
+                </div>
+            </form>
+            <div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -33,20 +43,20 @@ class formEmitirProforma
                         <?php
                         $categoriasPorId = [];
                         foreach ($listaCategoria as $categoria) {
-                            $categoriasPorId[$categoria['idCategoria']] = $categoria['categoria'];
+                            $categoriasPorId[$categoria['idcategoria']] = $categoria['categoria'];
                         }
 
                         foreach ($listaProductos as $producto) {
-                            $idProducto = $producto['idProducto'];
+                            $idProducto = $producto['idproducto'];
                             $codigo = $producto['codigo'];
                             $nombre = $producto['nombre'];
-                            $categoriaId = $producto['idCategoria'];
+                            $categoriaId = $producto['idcategoria'];
                             $precio = $producto['precio'];
                             $stock = $producto['stock'];
                             $nombreCategoria = isset($categoriasPorId[$categoriaId]) ? $categoriasPorId[$categoriaId] : 'null';
                             ?>
                             <tr>
-                                <td class="datosProducto" style="display: none;"><?php echo $idProducto?></td>
+                                <td class="datosProducto" style="display: none;"><?php echo $idProducto ?></td>
                                 <td><?php echo $codigo; ?></td>
                                 <td class="datosProducto"><?php echo $nombre; ?></td>
                                 <td><?php echo $nombreCategoria; ?></td>
