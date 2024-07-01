@@ -17,5 +17,8 @@ $_SESSION['idUsuario'] = $idUsuario;
 <form action="getProforma.php" method="POST">
     <input type="submit" value="Emitir proforma" name="btnEmitirProforma">
 </form>
+<form action="getBoleta.php" method="POST">
+    <input type="submit" value="Registrar despacho" name="btnRegistrarDespacho">
+</form>
 <?php
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-06-2024 a las 03:39:26
+-- Tiempo de generación: 01-07-2024 a las 03:33:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,6 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `boleta`
+--
+
+CREATE TABLE `boleta` (
+  `idboleta` int(3) NOT NULL,
+  `numeroBoleta` int(5) NOT NULL,
+  `fecha` date NOT NULL,
+  `horaEmision` time NOT NULL,
+  `idusuario` int(3) NOT NULL,
+  `medioPago` varchar(20) NOT NULL,
+  `estado` varchar(20) NOT NULL,
+  `total` float(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `boleta`
+--
+
+INSERT INTO `boleta` (`idboleta`, `numeroBoleta`, `fecha`, `horaEmision`, `idusuario`, `medioPago`, `estado`, `total`) VALUES
+(1, 1, '2024-06-30', '18:25:19', 1, 'Efectivo', 'Pendiente', 1.10);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `categoria`
 --
 
@@ -39,6 +63,28 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`idcategoria`, `categoria`) VALUES
 (1, 'Papeles'),
 (2, 'Lapices');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalleboleta`
+--
+
+CREATE TABLE `detalleboleta` (
+  `iddetalleboleta` int(3) NOT NULL,
+  `idboleta` int(3) NOT NULL,
+  `idproducto` int(3) NOT NULL,
+  `cantidad` int(5) NOT NULL,
+  `subtotal` float(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detalleboleta`
+--
+
+INSERT INTO `detalleboleta` (`iddetalleboleta`, `idboleta`, `idproducto`, `cantidad`, `subtotal`) VALUES
+(1, 1, 1, 1, 0.10),
+(2, 1, 2, 1, 1.00);
 
 -- --------------------------------------------------------
 
@@ -116,10 +162,24 @@ INSERT INTO `proforma` (`idproforma`, `idusuario`, `fecha`, `estado`, `totalProf
 --
 
 --
+-- Indices de la tabla `boleta`
+--
+ALTER TABLE `boleta`
+  ADD PRIMARY KEY (`idboleta`);
+
+--
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idcategoria`);
+
+--
+-- Indices de la tabla `detalleboleta`
+--
+ALTER TABLE `detalleboleta`
+  ADD PRIMARY KEY (`iddetalleboleta`),
+  ADD KEY `idboleta` (`idboleta`),
+  ADD KEY `idproducto` (`idproducto`);
 
 --
 -- Indices de la tabla `detalleproforma`
@@ -147,10 +207,22 @@ ALTER TABLE `proforma`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `boleta`
+--
+ALTER TABLE `boleta`
+  MODIFY `idboleta` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `idcategoria` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `detalleboleta`
+--
+ALTER TABLE `detalleboleta`
+  MODIFY `iddetalleboleta` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleproforma`
@@ -173,6 +245,13 @@ ALTER TABLE `proforma`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `detalleboleta`
+--
+ALTER TABLE `detalleboleta`
+  ADD CONSTRAINT `detalleboleta_ibfk_1` FOREIGN KEY (`idboleta`) REFERENCES `boleta` (`idBoleta`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalleboleta_ibfk_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalleproforma`
