@@ -1,7 +1,7 @@
 <?php
 class formGestionarInventario
 {
-    public function formGestionarInventarioShow($listaProductos)
+    public function formGestionarInventarioShow($listaProductos, $listaCategoria)
     { ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -19,11 +19,11 @@ class formGestionarInventario
             <div>
                 <p>Usuario conectado: <?php echo $_SESSION['usuario'] ?></p>
             </div>
-            <form action="getBoleta.php" method="POST">
+            <form action="getInventario.php" method="POST">
                 <div class="input-group">
-                    <input class="form-control" type="text" name="txtBuscarBoleta" placeholder="Buscar boleta"
+                    <input class="form-control" type="text" name="txtBuscarProducto" placeholder="Buscar producto"
                         aria-label="Search">
-                    <button class="btn btn-light" type="submit" name="btnBuscarBoleta">Buscar</button>
+                    <button class="btn btn-light" type="submit" name="btnBuscarProducto">Buscar</button>
                 </div>
             </form>
             <div>
@@ -41,13 +41,19 @@ class formGestionarInventario
                     </thead>
                     <tbody>
                         <?php
+                        $categoriasPorId = [];
+                        foreach ($listaCategoria as $categoria) {
+                            $categoriasPorId[$categoria['idcategoria']] = $categoria['categoria'];
+                        }
+
                         foreach ($listaProductos as $producto) {
                             $idproducto = $producto['idproducto'];
                             $nom_producto = $producto['producto'];
                             $descripcion = $producto['descripcion'];
                             $precio = $producto['precio'];
                             $stock = $producto['stock'];
-                            $idcategoria = $producto['idcategoria'];
+                            $categoriaId = $producto['idcategoria'];
+                            $nombreCategoria = isset($categoriasPorId[$categoriaId]) ? $categoriasPorId[$categoriaId] : 'null';
                             ?>
                             <tr>
                                 <td><?php echo $idproducto; ?></td>
@@ -55,12 +61,12 @@ class formGestionarInventario
                                 <td><?php echo $descripcion; ?></td>
                                 <td><?php echo $precio; ?></td>
                                 <td><?php echo $stock; ?></td>
-                                <td><?php echo $idcategoria; ?></td>
+                                <td><?php echo $nombreCategoria; ?></td>
                                 <td>
-                                    <form action="getBoleta.php" method="POST">
-                                        <input type="hidden" name="idBoleta" value="<?php echo $idproducto; ?>">
-                                        <input type="submit" class="btn btn-secondary" name="btnVerDetalleBoleta"
-                                            value="Ver detalle">
+                                    <form action="getInventario.php" method="POST">
+                                        <input type="hidden" name="idproducto" value="<?php echo $idproducto; ?>">
+                                        <input type="submit" class="btn btn-secondary" name="btnEditarProducto"
+                                            value="Editar producto">
                                     </form>
                                 </td>
                             </tr>
@@ -70,6 +76,12 @@ class formGestionarInventario
                     </tbody>
                 </table>
             </div>
+            <form action="getInventario.php" method="POST">
+                <input type="submit" class="btn btn-primary" name="btnGenerarReporte" value="Generar reporte">
+            </form>
+            <form action="getInventario.php" method="POST">
+                <input type="submit" class="btn btn-primary" name="btnAgregarProducto" value="Agregar producto">
+            </form>
 
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
         </body>

@@ -71,7 +71,7 @@ if (validarBoton($btnRegistrarDespacho)) {
     $idBoleta = (int) $_POST['idBoleta'];
     include_once ("../moduloVentas/controlRegistrarDespacho.php");
     $objControlRegistrarDespacho = new controlRegistrarDespacho();
-    $objControlRegistrarDespacho->obtenerDatosDetalleBoleta($idBoleta);
+    $objControlRegistrarDespacho->despacharBoleta($idBoleta);
     
 } else {
     include_once ("../shared/mensajeSistema.php");

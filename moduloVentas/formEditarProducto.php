@@ -1,10 +1,10 @@
 <?php
-class formAgregarProducto
+class formEditarProducto
 {
     public function formEditarProductoShow($datosProducto, $listaCategoria)
     { ?>
         <!DOCTYPE html>
-        <html lang="en">
+        <div lang="en">
 
         <head>
             <meta charset="UTF-8">
@@ -19,34 +19,42 @@ class formAgregarProducto
             <div>
                 <p>Usuario conectado: <?php echo $_SESSION['usuario'] ?></p>
             </div>
-            <div>
-                <div>
-                    <p>ID Producto</p>
-                    <input type="text" name="" value="" readonly>
-                </div>
+            <form action="getProducto.php" method="POST">
                 <div>
                     <p>Nombre Producto</p>
-                    <input type="text" name="" value="">
+                    <input type="text" name="producto" value="<?php echo $datosProducto['producto']; ?>">
                 </div>
                 <div>
                     <p>Descripción Producto</p>
-                    <input type="text" name="" value="">
+                    <input type="text" name="descripcion" value="<?php echo $datosProducto['descripcion']; ?>">
                 </div>
                 <div>
                     <p>Precio Producto</p>
-                    <input type="number" min="1" name="" value="">
+                    <input type="text" name="precio" value="<?php echo $datosProducto['precio']; ?>">
                 </div>
                 <div>
                     <p>Stock</p>
-                    <input type="number" name="" value="">
+                    <input type="number" name="stock" value="<?php echo $datosProducto['stock']; ?>" min="1">
                 </div>
                 <div>
                     <p>Categoria</p>
-                    <select name="" id="">
-                        <option value=""></option>
+                    <select name="idcategoria">
+                        <?php
+                        foreach ($listaCategoria as $categoria) {
+                            $idcategoria = $categoria['idcategoria'];
+                            $nom_categoria = $categoria['categoria'];
+                            $selected = ($idcategoria == $datosProducto['idcategoria']) ? 'selected' : '';
+                            ?>
+                            <option value="<?php echo $idcategoria ?>" <?php echo $selected ?>><?php echo $nom_categoria ?></option>
+                            <?php
+                        } ?>
                     </select>
                 </div>
-            </div>
+                <div>
+                    <input type="hidden" name="idproducto" value="<?php echo $datosProducto['idproducto']; ?>">
+                    <input type="submit" class="btn btn-primary" name="btnGuardarCambios" value="Guardar cambios">
+                </div>
+            </form>
 
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
         </body>

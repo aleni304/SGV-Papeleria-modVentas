@@ -20,5 +20,8 @@ $_SESSION['idUsuario'] = $idUsuario;
 <form action="getBoleta.php" method="POST">
     <input type="submit" value="Registrar despacho" name="btnRegistrarDespacho">
 </form>
+<form action="getInventario.php" method="POST">
+    <input type="submit" value="Gestionar inventario" name="btnGestionarInventario">
+</form>
 <?php
 ?>
