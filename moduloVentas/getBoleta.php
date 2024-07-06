@@ -35,7 +35,7 @@ if (validarBoton($btnRegistrarDespacho)) {
     $objControlRegistrarDespacho = new controlRegistrarDespacho();
     $objControlRegistrarDespacho->listarBoletasBD();
 
-} else if ($btnBuscarBoleta) {
+} else if (validarBoton($btnBuscarBoleta)) {
     $txtBuscarBoleta = $_POST['txtBuscarBoleta'];
     if (verificarCamposVacios($txtBuscarBoleta)) {
         if (verificarSoloNúmeros($txtBuscarBoleta)) {
@@ -49,7 +49,7 @@ if (validarBoton($btnRegistrarDespacho)) {
 
             include_once ("../shared/mensajeSistema.php");
             $objMensajeSistema = new mensajeSistema();
-            $objMensajeSistema->mensajeSistemaShow("Alto acceso no permitido", "");
+            $objMensajeSistema->mensajeSistemaShow("Ingrese sólo dígitos numéricos", "");
         }
     } else {
         include_once ("../moduloVentas/controlRegistrarDespacho.php");
@@ -58,7 +58,7 @@ if (validarBoton($btnRegistrarDespacho)) {
 
         include_once ("../shared/mensajeSistema.php");
         $objMensajeSistema = new mensajeSistema();
-        $objMensajeSistema->mensajeSistemaShow("Alto acceso no permitido", "");
+        $objMensajeSistema->mensajeSistemaShow("Complete los campos", "");
     }
 
 } else if (validarBoton($btnVerDetalleBoleta)) {
@@ -67,7 +67,7 @@ if (validarBoton($btnRegistrarDespacho)) {
     $objControlRegistrarDespacho = new controlRegistrarDespacho();
     $objControlRegistrarDespacho->obtenerDatosDetalleBoleta($idBoleta);
 
-} else if (validarBoton($btnRegistrarDespacho)){
+} else if (validarBoton($btnDespacharBoleta)){
     $idBoleta = (int) $_POST['idBoleta'];
     include_once ("../moduloVentas/controlRegistrarDespacho.php");
     $objControlRegistrarDespacho = new controlRegistrarDespacho();

@@ -3,9 +3,8 @@ class formVerDetalleBoleta
 {
     public function formVerDetalleBoletaShow($detalleBoleta)
     {
-        $numBoleta = isset($detalleBoleta[0]['numeroBoleta']) ? $detalleBoleta[0]['numeroBoleta'] : '';
-        $idboleta = isset($detalleBoleta[0]['idboleta']) ? $detalleBoleta[0]['idboleta'] : '';
-        $total = isset($detalleBoleta[0]['total']) ? $detalleBoleta[0]['total'] : '';
+        $idboleta = isset($detalleBoleta[0]['IDBoleta']) ? $detalleBoleta[0]['IDBoleta'] : '';
+        $total = isset($detalleBoleta[0]['importe_total']) ? $detalleBoleta[0]['importe_total'] : '';
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -24,31 +23,33 @@ class formVerDetalleBoleta
                 <p>Usuario conectado: <?php echo $_SESSION['usuario'] ?></p>
             </div>
             <div>
-                <p>Boleta <?php echo $numBoleta ?></p>
+                <p>Boleta <?php echo $idboleta ?></p>
             </div>
             <div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>Código Producto</td>
+                            <td>ID Producto</td>
                             <td>Nombre</td>
                             <td>Cantidad</td>
-                            <td>Subtotal</td>
+                            <td>Importe</td>
+                            <td>IGV</td>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         foreach ($detalleBoleta as $detalle) {
-                            $codigo = $detalle['codigo'];
-                            $nombre = $detalle['nombre'];
+                            $nombre = $detalle['producto'];
                             $cantidad = $detalle['cantidad'];
-                            $subtotal = $detalle['subtotal'];
+                            $importe = $detalle['Importe'];
+                            $igv = $detalle['IGV'];
                             ?>
                             <tr>
-                                <td><?php echo $codigo; ?></td>
+                                <td><?php echo $idboleta; ?></td>
                                 <td><?php echo $nombre; ?></td>
                                 <td><?php echo $cantidad; ?></td>
-                                <td><?php echo $subtotal; ?></td>
+                                <td><?php echo $importe; ?></td>
+                                <td><?php echo $igv; ?></td>
                             </tr>
                             <?php
                         }

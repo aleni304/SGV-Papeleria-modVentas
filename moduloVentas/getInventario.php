@@ -25,6 +25,10 @@ function verificarCaracteresEspeciales($txtBuscarProducto)
     }
 }
 
+function verificarCampos($nom_producto, $descripcion, $precio, $stock, $idcategoria){
+    
+}
+
 $btnGestionarInventario = $_POST['btnGestionarInventario'] ?? null;
 $btnBuscarProducto = $_POST['btnBuscarProducto'] ?? null;
 $btnAgregarProducto = $_POST['btnAgregarProducto'] ?? null;

@@ -4,11 +4,12 @@ session_start();
 //Funciones -------------------------------------
 function validarBoton($boton)
 {
-    if (isset($boton)) {
-        return true;
-    } else {
-        return false;
-    }
+    return (isset($boton));
+}
+
+function verificarSesionIniciada()
+{
+    return isset($_SESSION['idUsuario']);
 }
 
 function verificarCamposVacios($txtBuscarProducto)
@@ -18,7 +19,7 @@ function verificarCamposVacios($txtBuscarProducto)
 
 function verificarCaracteresEspeciales($txtBuscarProducto)
 {
-    if (preg_match("/[^a-zA-Z0-9áéíóúÁÉÍÓÚ\s]/", $txtBuscarProducto)) {
+    if (preg_match('/^\d+$/', $txtBuscarProducto)) {
         return true;
     } else {
         return false;
@@ -54,15 +55,22 @@ $btnGenerarProforma = $_POST['btnGenerarProforma'] ?? null;
 
 //Validación de botones -------------------------------------
 if (validarBoton($btnEmitirProforma)) {
-    include_once ("controlEmitirProforma.php");
-    $objControlEmitirProforma = new controlEmitirProforma();
-    $objControlEmitirProforma->listarProductosBD();
+    if (verificarSesionIniciada()) {
+        include_once ("controlEmitirProforma.php");
+        $objControlEmitirProforma = new controlEmitirProforma();
+        $objControlEmitirProforma->listarProductosBD();
+
+    } else {
+        include_once ("../shared/mensajeSistema.php");
+        $objMensajeSistema = new mensajeSistema();
+        $objMensajeSistema->mensajeSistemaShow("Inicie sesión para continuar", "index.php", "systemOut");
+    }
 
 } else if (validarBoton($btnBuscarProducto)) {
     $txtBuscarProducto = strtolower($_POST['txtBuscarProducto']);
 
     if (verificarCamposVacios($txtBuscarProducto)) {
-        if (!verificarCaracteresEspeciales($txtBuscarProducto)) {
+        if (verificarCaracteresEspeciales($txtBuscarProducto)) {
             include_once ("controlEmitirProforma.php");
             $objControlEmitirProforma = new controlEmitirProforma();
             $objControlEmitirProforma->listarBusquedaProductos($txtBuscarProducto);

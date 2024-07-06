@@ -38,7 +38,6 @@ class boleta extends conexion {
             $this->desConexion();
             return true;
         } else {
-            // Manejo de error si la inserción falla
             echo "Error: " . $sql . "<br>" . $conexion->error;
             $this->desConexion();
             return false;

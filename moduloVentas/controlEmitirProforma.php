@@ -31,13 +31,15 @@ class controlEmitirProforma
     {
         include_once ("../shared/mensajeSistema.php");
         $objMensajeSistema = new mensajeSistema();
-        $fecha = date("Y-m-d H:i:s");
+        date_default_timezone_set('America/Lima');
+        $fecha = date("Y-m-d");
+        $hora = date("H:i:s");
         $idUsuario = $_SESSION["idUsuario"];
         include_once ("../modelos/proforma.php");
         $objProforma = new proforma();
-        $idProforma = $objProforma->insertarProforma($idUsuario, $fecha, $totalProforma);
-        include_once ("../modelos/detalleProforma.php");
-        $objDetalleProforma = new detalleProforma();
+        $idProforma = $objProforma->insertarProforma($idUsuario, $fecha, $hora, $totalProforma);
+        include_once ("../modelos/detalle_proforma.php");
+        $objDetalleProforma = new detalle_proforma();
         foreach ($listaProductos as $listaProducto) {
             $idProducto = $listaProducto["idProducto"];
             $cantidad = $listaProducto["cantidad"];
